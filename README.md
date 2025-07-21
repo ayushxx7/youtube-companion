@@ -1,5 +1,3 @@
-# Yt_Uploader
-
 # YouTube Upload Assistant - Setup Guide
 
 ## Requirements (requirements.txt)
