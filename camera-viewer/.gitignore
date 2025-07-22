@@ -4,3 +4,5 @@ downloads/
 *.log
 .venv
 .python-version
+*metadata*
+__pycache__/
