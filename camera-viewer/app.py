@@ -152,9 +152,15 @@ def index():
 @app.route("/download/<filename>")
 def download_file(filename):
     path = DOWNLOAD_DIR / filename
+    temp_path = TEMP_DIR / filename
     if not path.exists():
-        logger.info(f"Downloading file from device: {filename}")
-        subprocess.run(["adb", "pull", CAMERA_DIR + filename, str(path)])
+        if temp_path.exists():
+            logger.info(f"Copying file from temp to downloads: {filename}")
+            with open(temp_path, "rb") as src, open(path, "wb") as dst:
+                dst.write(src.read())
+        else:
+            logger.info(f"Downloading file from device: {filename}")
+            subprocess.run(["adb", "pull", CAMERA_DIR + filename, str(path)])
     else:
         logger.info(f"Serving cached file: {filename}")
     return send_from_directory(DOWNLOAD_DIR, filename, as_attachment=True)
