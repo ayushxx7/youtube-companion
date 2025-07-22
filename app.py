@@ -15,7 +15,7 @@ from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
 from google.auth.transport.requests import Request
 
-# Configuration
+# Configuration 
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
 SCOPES = ['https://www.googleapis.com/auth/youtube.upload']
@@ -72,7 +72,7 @@ class AIMetadataGenerator:
         }
 
         data = {
-            "model": "deepseek/deepseek-chat",
+            "model": "deepseek/deepseek-chat-v3-0324",
             "messages": [
                 {"role": "system", "content": "You are a YouTube metadata expert."},
                 {"role": "user", "content": prompt}
@@ -122,7 +122,7 @@ class YouTubeUploader:
                         return False
 
                     flow = InstalledAppFlow.from_client_secrets_file(CLIENT_SECRETS_FILE, SCOPES)
-                    self.credentials = flow.run_local_server(port=0)
+                    self.credentials = flow.run_local_server(port=56670)
 
                     with open('youtube_credentials.pickle', 'wb') as token:
                         pickle.dump(self.credentials, token)

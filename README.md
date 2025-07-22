@@ -14,25 +14,9 @@ requests>=2.28.0
 pyaudio>=0.2.11
 ```
 
-## Installation Steps
+# Installation Steps
 
-### 1. Environment Setup
-
-```bash
-# Create virtual environment
-python -m venv youtube_uploader_env
-
-# Activate environment
-# Windows:
-youtube_uploader_env\Scripts\activate
-# Linux/Mac:
-source youtube_uploader_env/bin/activate
-
-# Install dependencies
-pip install -r requirements.txt
-```
-
-### 2. Google API Setup
+## 1. Google API Setup
 
 1. **Create Google Cloud Project:**
    - Go to [Google Cloud Console](https://console.cloud.google.com/)
@@ -50,7 +34,7 @@ pip install -r requirements.txt
    - Add your email to test users
    - Set scopes: `https://www.googleapis.com/auth/youtube.upload`
 
-### 3. OpenRouter API Setup
+## 2. OpenRouter API Setup
 
 1. Sign up at [OpenRouter](https://openrouter.ai/)
 2. Get your API key from the dashboard
@@ -64,7 +48,7 @@ set OPENROUTER_API_KEY=your_api_key_here
 export OPENROUTER_API_KEY=your_api_key_here
 ```
 
-### 4. Audio Setup (Important!)
+## 3. Audio Setup
 
 **Windows:**
 - PyAudio should install automatically
@@ -85,6 +69,36 @@ brew install portaudio
 pip install pyaudio
 ```
 
+## 4. Environment Setup
+
+### uv
+
+```sh
+# install / setup
+uv init
+uv venv
+uv add -r uv_requirements.txt (or uv add -r requirements.txt works as well)
+
+# run
+uv run streamlit run app.py
+```
+
+### pip
+
+```bash
+# Create virtual environment
+python -m venv youtube_uploader_env
+
+# Activate environment
+# Windows:
+youtube_uploader_env\Scripts\activate
+# Linux/Mac:
+source youtube_uploader_env/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
 ### 5. File Structure
 
 ```
@@ -100,6 +114,12 @@ youtube_uploader/
 
 ```bash
 streamlit run app.py
+```
+
+or if using `uv`
+
+```sh
+uv run streamlit run app.py
 ```
 
 ## Usage Guide
