@@ -1,0 +1,6 @@
+temp/
+static/
+downloads/
+*.log
+.venv
+.python-version

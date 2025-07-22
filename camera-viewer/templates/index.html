@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Camera Roll Viewer</title>
+    <style>
+        body { background: #111; color: #eee; font-family: sans-serif; }
+        .grid { display: flex; flex-wrap: wrap; gap: 16px; padding: 20px; justify-content: center; }
+        .card {
+            background: #222; padding: 10px; border-radius: 8px;
+            width: 220px; box-shadow: 0 0 5px #000;
+        }
+        .thumb { width: 100%; border-radius: 4px; }
+        .meta { font-size: 12px; margin-top: 5px; word-break: break-word; }
+        a { color: #3bf; text-decoration: none; font-size: 14px; }
+        .form { text-align: center; margin: 20px; }
+    </style>
+</head>
+<body>
+    <h1 style="padding: 20px;">📅 Filter Camera Roll by Date</h1>
+    <form method="post" class="form">
+        <label>Start Date: <input type="date" name="start_date" value="{{ default_start }}"></label>
+        <label>End Date: <input type="date" name="end_date" value="{{ default_end }}"></label>
+        <button type="submit">📥 Load Videos</button>
+    </form>
+
+    {% if videos %}
+    <div class="grid">
+        {% for video in videos %}
+        <div class="card">
+            <img src="{{ video.thumbnail }}" class="thumb">
+            <div class="meta">{{ video.name }}</div>
+            <div class="meta">{{ video.size_mb }} MB</div>
+            <div class="meta">🕒 {{ video.duration }}</div>
+            <div class="meta">{{ video.date }}</div>
+            <a href="/download/{{ video.name }}">⬇ Download</a>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</body>
+</html>
+

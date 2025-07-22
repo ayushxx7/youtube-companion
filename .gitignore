@@ -2,5 +2,4 @@
 .env
 client_secrets.json
 youtube_credentials.pickle
-*camera*
 metadata.json
