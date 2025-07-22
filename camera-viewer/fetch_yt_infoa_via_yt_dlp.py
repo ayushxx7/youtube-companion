@@ -2,6 +2,18 @@ import subprocess
 import json
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
+def load_existing_ids(fname):
+    existing_ids = set()
+    try:
+        with open(fname, "r", encoding="utf-8") as f:
+            for line in f:
+                parts = line.strip().split("\t")
+                if parts:  # first column is video ID
+                    existing_ids.add(parts[0])
+    except FileNotFoundError:
+        pass
+    return existing_ids
+
 def fetch_yt_metadata():
     videos_url = "https://www.youtube.com/@thevibecoder69/videos"
     videos_fname = "yt_videos_metadata.txt"
@@ -10,6 +22,13 @@ def fetch_yt_metadata():
 
     # Define the order of fields to write
     fields = ["id", "title", "upload_date", "duration", "description", "webpage_url"]
+
+    def write_shorts_metadata(fname, metadata_list):
+        with open(fname, "a", encoding="utf-8") as f:
+            for meta in metadata_list:
+                # For any missing field, write empty string
+                vals = [meta.get(field, "").replace("\n", " ").replace("\t", " ") for field in fields]
+                f.write("\t".join(vals) + "\n")
 
     def write_metadata(fname, metadata_list):
         with open(fname, "w", encoding="utf-8") as f:
@@ -70,9 +89,21 @@ def fetch_yt_metadata():
         lines = result.stdout.strip().split("\n")
         video_ids = lines  # Each line is a video id
 
-        shorts_metadata = fetch_all_metadata(video_ids=video_ids[0:5])
+        existing_shorts_ids = load_existing_ids(shorts_fname)
+        video_ids = [vid for vid in lines if vid not in existing_shorts_ids]
 
-        write_metadata(shorts_fname, shorts_metadata)
+        if video_ids:
+            shorts_metadata = fetch_all_metadata(video_ids=video_ids)
+            # Append new metadata instead of overwriting
+            with open(shorts_fname, "a", encoding="utf-8") as f:
+                for meta in shorts_metadata:
+                    vals = [meta.get(field, "").replace("\n", " ").replace("\t", " ") for field in fields]
+                    f.write("\t".join(vals) + "\n")
+            print(f"Updated shorts metadata in {shorts_fname}")
+        else:
+            print("No new shorts found. Skipping fetch.")
+
+        write_shorts_metadata(shorts_fname, shorts_metadata)
         print(f"Saved shorts metadata to {shorts_fname}")
 
     except Exception as e:
