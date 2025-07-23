@@ -33,8 +33,24 @@
             <div class="meta">🕒 {{ video.duration }}</div>
             <div class="meta">{{ video.date }}</div>
             <a href="/download/{{ video.name }}">⬇ Download</a>
+            {% if video.can_delete %}
+            <button class="delete-btn" onclick="deleteVideo('{{ video.name }}')">🗑 Delete</button>
+            {% endif %}
         </div>
         {% endfor %}
+    </div>
+    <script>
+    function deleteVideo(filename) {
+        if (confirm('Permanently delete ' + filename + '?')) {
+            fetch('/delete/' + filename, { method: 'POST' })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.reload();
+                    }
+                });
+        }
+    }
+    </script>
     </div>
     {% endif %}
 </body>

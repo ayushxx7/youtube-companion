@@ -4,9 +4,10 @@ from datetime import datetime
 from pathlib import Path
 import logging
 from logging.handlers import RotatingFileHandler
+from camera_roll_cleaner import load_yt_videos, match_video
+import os
 
 app = Flask(__name__)
-
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s %(levelname)s %(message)s')
 logger = logging.getLogger(__name__)
 
@@ -111,17 +112,18 @@ def generate_thumbnail(remote_path, filename, expected_size=None):
             "ffprobe", "-v", "error", "-show_entries",
             "format=duration", "-of", "default=noprint_wrappers=1:nokey=1", str(local_full)
         ], text=True)
-        seconds = float(result.strip())
-        duration = f"{int(seconds // 60)}:{int(seconds % 60):02}"
+        duration_seconds = float(result.strip())
+        duration_display = f"{int(duration_seconds // 60)}:{int(duration_seconds % 60):02}"
     except Exception as e:
         logger.warning(f"Failed to get duration for {local_full}: {e}")
-        duration = "?:??"
+        duration_seconds = 0
+        duration_display = "?:??"
 
     if not thumb_path.exists():
         logger.warning(f"Thumbnail not found for {filename}, using placeholder.")
-        return placeholder, duration
+        return placeholder, duration_display
 
-    return str(thumb_path), duration
+    return str(thumb_path), (duration_seconds, duration_display)
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -139,12 +141,19 @@ def index():
             logger.warning(f"Failed to parse dates from form: {e}")
 
         video_entries = list_videos_filtered(start_date, end_date)
+        yt_videos = load_yt_videos()
         for v in video_entries:
             thumb, duration = generate_thumbnail(v["remote_path"], v["name"], v["expected_size"])
             v["thumbnail"] = thumb
             v["duration"] = duration
+            # Check if video can be deleted
+            uploaded, reason = match_video(v, yt_videos)
+            v["can_delete"] = uploaded
+            v["delete_reason"] = reason
             videos.append(v)
 
+        logger.info(f"Videos: {videos}")
+    
     return render_template("index.html", videos=videos,
                            default_start=start_date.strftime("%Y-%m-%d"),
                            default_end=end_date.strftime("%Y-%m-%d"))
@@ -164,6 +173,17 @@ def download_file(filename):
     else:
         logger.info(f"Serving cached file: {filename}")
     return send_from_directory(DOWNLOAD_DIR, filename, as_attachment=True)
+
+@app.route("/delete/<filename>", methods=["POST"])
+def delete_file(filename):
+    try:
+        # Sanitize filename and execute ADB delete
+        safe_filename = os.path.basename(filename)
+        adb_shell(f"rm {CAMERA_DIR}{safe_filename}")
+        return {"status": "success", "message": f"Deleted {safe_filename}"}
+    except Exception as e:
+        logger.error(f"Delete failed for {filename}: {str(e)}")
+        return {"status": "error", "message": str(e)}, 500
 
 if __name__ == "__main__":
     from datetime import timedelta

@@ -47,20 +47,36 @@ def get_local_videos(temp_dir: str) -> list[dict]:
         files.append({'filename': fname, 'duration': duration, 'path': fpath})
     return files
 
+def parse_duration(duration_str: str) -> float:
+    """Convert duration string in HH:MM:SS or MM:SS format to seconds."""
+    parts = list(map(float, duration_str.split(':')))
+    if len(parts) == 1:  # SS format
+        return parts[0]
+    elif len(parts) == 2:  # MM:SS
+        return parts[0] * 60 + parts[1]
+    elif len(parts) == 3:  # HH:MM:SS
+        return parts[0] * 3600 + parts[1] * 60 + parts[2]
+    return 0.0
+
 def match_video(local, yt_videos, duration_tol=0.5):
     """Return True if local video matches any YouTube video by duration (within tolerance)."""
     matches = []
-    if local['duration'] is not None:
-        for yt in yt_videos:
-            try:
-                yt_dur = int(float(yt['duration']))
-            except Exception:
-                continue
-            if abs(local['duration'] - yt_dur) <= duration_tol:
-                matches.append(f"{yt['url']} (uploaded {yt['upload_date']})")
-    if matches:
-        return True, f"Matched by duration: {', '.join(matches)}"
-    return False, "No duration match in YouTube uploads"
+    try:
+        local_dur = float(local.get('duration')[0])
+    except (TypeError, ValueError):
+        return False, "Invalid local duration"
+
+    for yt in yt_videos:
+        try:
+            # Parse YouTube duration which could be in seconds or HH:MM:SS format
+            yt_dur = parse_duration(yt['duration'])
+        except (KeyError, ValueError):
+            continue
+        
+        if abs(local_dur - yt_dur) <= duration_tol:
+            matches.append(f"{yt['url']} (uploaded {yt['upload_date']})")
+
+    return (True, f"Matched by duration: {', '.join(matches)}") if matches else (False, "No duration match")
 
 def load_yt_videos():
     metadata_files = ['yt_videos_metadata.txt', 'yt_shorts_metadata.txt']
