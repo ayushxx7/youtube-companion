@@ -26,6 +26,24 @@ This project was surgically healed from 0/100 to 85/100 by the Project Showcase 
 
 ## 📦 Features
 - **Upload Assistant**: Surgical file uploads and metadata management.
+
+## 🏗 Architecture
+The suite is organized into independent Streamlit micro-apps, sharing a common environment and asset pool.
+
+```mermaid
+graph TD
+    A[User] --> B[Upload Assistant]
+    A --> C[Camera Viewer]
+    B --> D[YouTube API]
+    C --> E[Local Assets / OS]
+    B --> F[.env Credentials]
+    C --> F
+```
+
+### Core Components
+- **Upload Assistant (`upload-assistant/`)**: Handles OAuth flow, metadata injection, and reliable uploads via the official YouTube Data API.
+- **Camera Viewer (`camera-viewer/`)**: Provides real-time asset browsing, camera roll management, and metadata extraction via `yt-dlp`.
+- **Environment Logic**: Centralized `.env` and `.streamlit/config.toml` for seamless local development and secure key management.
 - **Camera/File Viewer**: Real-time asset previewing for Streamlit-based workflows.
 - **Environment Aware**: Configurable via `.env` for secure credential management.
 
