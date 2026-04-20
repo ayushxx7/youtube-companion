@@ -8,21 +8,7 @@
 
 **YouTube Companion** is a dedicated tool suite designed to automate and streamline the content creation workflow for Ayush's YouTube channel. It features an **Upload Assistant** and a **File Viewer/Camera Viewer** to manage assets with ease.
 
-## 🎬 Showcase Gallery
-| 🚀 Upload Assistant | 📷 Camera Viewer |
-| :---: | :---: |
-| ![Upload](https://raw.githubusercontent.com/ayushxx7/youtube-companion/main/showcase/upload.png) | ![Camera](https://raw.githubusercontent.com/ayushxx7/youtube-companion/main/showcase/camera.png) |
-
-## 📊 Repo Health: 85 / 100 (Healing in Progress)
-This project was surgically healed from 0/100 to 85/100 by the Project Showcase Skill.
-
-| Category | Item | Status | Score |
-| :--- | :--- | :--- | :--- |
-| **Documentation** | README & LICENSE | ✅ Created | 15 / 15 |
-| **Security** | Secret Scan & .gitignore | ✅ Secure | 15 / 15 |
-| **Automation** | Upload & Camera Scripts | ✅ Working | 20 / 20 |
-| **Showcase** | High-res Assets | ⚠️ Pending | 10 / 20 |
-| **Distribution** | Internal Tooling | ✅ Active | 25 / 30 |
+`✅ YouTube API Integration | ✅ Real-time Camera Roll | ✅ MIT Licensed | ✅ Environment-Aware`
 
 ## 📦 Features
 - **Upload Assistant**: Surgical file uploads and metadata management.
