@@ -1,0 +1,27 @@
+<svg width="800" height="400" viewBox="0 0 800 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="400" rx="10" fill="#0E1117"/>
+  <rect width="800" height="50" rx="10" fill="#00FF00" opacity="0.1"/>
+  <text x="30" y="32" fill="#00FF00" font-family="Arial" font-size="18" font-weight="bold">📷 Camera Roll Viewer</text>
+  
+  <!-- Grid -->
+  <rect x="30" y="80" width="170" height="120" rx="10" fill="#3B3D4A"/>
+  <text x="80" y="145" fill="white" font-family="Arial" font-size="12">IMG_001.JPG</text>
+  
+  <rect x="220" y="80" width="170" height="120" rx="10" fill="#3B3D4A"/>
+  <text x="270" y="145" fill="white" font-family="Arial" font-size="12">IMG_002.JPG</text>
+  
+  <rect x="410" y="80" width="170" height="120" rx="10" fill="#3B3D4A"/>
+  <text x="460" y="145" fill="white" font-family="Arial" font-size="12">IMG_003.JPG</text>
+  
+  <rect x="600" y="80" width="170" height="120" rx="10" fill="#3B3D4A"/>
+  <text x="650" y="145" fill="white" font-family="Arial" font-size="12">IMG_004.JPG</text>
+
+  <!-- Detailed View -->
+  <rect x="30" y="220" width="740" height="150" rx="10" fill="#262730" stroke="#00FF00"/>
+  <text x="50" y="250" fill="#00FF00" font-family="Arial" font-size="14" font-weight="bold">Selected Asset Analysis</text>
+  <text x="50" y="280" fill="white" font-family="Arial" font-size="12">Filename: IMG_002.JPG | Resolution: 1920x1080 | Type: Video/MP4</text>
+  <text x="50" y="310" fill="#808495" font-family="Arial" font-size="12">EXIF: Created 2026-04-20 12:45 PM | Device: Sony ZV-E10</text>
+  
+  <rect x="600" y="310" width="150" height="35" rx="5" fill="#3B3D4A"/>
+  <text x="635" y="332" fill="white" font-family="Arial" font-size="12">Generate Metadata</text>
+</svg>

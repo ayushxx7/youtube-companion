@@ -1,0 +1,27 @@
+<svg width="800" height="400" viewBox="0 0 800 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="400" rx="10" fill="#0E1117"/>
+  <rect width="800" height="50" rx="10" fill="#FF0000" opacity="0.1"/>
+  <text x="30" y="32" fill="#FF0000" font-family="Arial" font-size="18" font-weight="bold">📤 YouTube Upload Assistant</text>
+  
+  <!-- Form -->
+  <rect x="30" y="80" width="350" height="40" rx="5" fill="#262730"/>
+  <text x="45" y="105" fill="#808495" font-family="Arial" font-size="12">Video Title: 'Vibe Coding with Gemini'</text>
+  
+  <rect x="30" y="130" width="350" height="100" rx="5" fill="#262730"/>
+  <text x="45" y="155" fill="#808495" font-family="Arial" font-size="12">Description: Exploring the future of AI...</text>
+  
+  <rect x="400" y="80" width="370" height="150" rx="10" fill="#3B3D4A" opacity="0.3"/>
+  <text x="420" y="110" fill="white" font-family="Arial" font-size="14" font-weight="bold">Metadata Audit</text>
+  <text x="420" y="140" fill="#00FF00" font-family="Arial" font-size="12">✅ Keywords Detected</text>
+  <text x="420" y="165" fill="#00FF00" font-family="Arial" font-size="12">✅ Category: Education</text>
+  <text x="420" y="190" fill="#FFD700" font-family="Arial" font-size="12">⚠️ Missing Custom Thumbnail</text>
+
+  <!-- Upload Button -->
+  <rect x="30" y="250" width="740" height="40" rx="20" fill="#FF0000"/>
+  <text x="360" y="275" fill="white" font-family="Arial" font-size="14" font-weight="bold">INITIALIZE SECURE UPLOAD</text>
+
+  <!-- Log -->
+  <rect x="30" y="310" width="740" height="70" rx="5" fill="#000"/>
+  <text x="45" y="335" fill="#00FF00" font-family="Courier" font-size="12">[AUTH] OAuth 2.0 Token Verified.</text>
+  <text x="45" y="355" fill="#00FF00" font-family="Courier" font-size="12">[STREAM] chunk_size=1024, uploading...</text>
+</svg>
