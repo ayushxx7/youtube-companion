@@ -10,9 +10,9 @@
 
 ## 🎬 UI Previews
 
-| 📊 Analytics Dashboard | 📤 Upload Assistant | 📷 Camera Viewer |
-| :---: | :---: | :---: |
-| ![Analytics](showcase/analytics_dashboard.png) | ![Upload](showcase/upload_preview.svg) | ![Camera](showcase/camera_preview.svg) |
+| 📊 Analytics Dashboard | 📤 Upload Assistant | 📷 Camera Viewer | 📺 YT Dashboard |
+| :---: | :---: | :---: | :---: |
+| ![Analytics](showcase/analytics_dashboard.png) | ![Upload](showcase/upload_preview.svg) | ![Camera](showcase/camera_preview.svg) | ![YT Dashboard](showcase/yt-dashboard/public_overview.png) |
 
 ## 🏗 Architecture
 The suite is organized into independent micro-apps, sharing a common environment and asset pool.
@@ -21,6 +21,7 @@ The suite is organized into independent micro-apps, sharing a common environment
 - **Upload Assistant**: Handles OAuth flow, surgical metadata injection, and reliable uploads via official APIs. AI-powered metadata generation via OpenRouter.
 - **Camera Viewer**: Provides real-time asset browsing, camera roll management, and metadata extraction via `yt-dlp`. Flask-based web UI.
 - **Analytics Intelligence**: YouTube analytics dashboard with custom KPIs (Hook Score, Packaging Score, Engagement Efficiency). Includes FastMCP server for AI-driven analysis.
+- **YT Dashboard**: Streamlit-based YouTube channel analytics dashboard with 4 views — Public Overview (channel stats, video embeds, top videos), Video Explorer (filterable/sortable video cards with embedded players), Analytics (views over time, engagement charts), and Studio placeholder for OAuth-only metrics. Built with `uv` for dependency management.
 - **Environment Hub**: Centralized `.env` and `.streamlit/config.toml` for seamless key management.
 
 ## 🚀 Key Features
@@ -48,9 +49,43 @@ streamlit run dashboard/app.py
 cd upload-assistant
 uv run streamlit run app.py
 
+# YT Dashboard
+cd yt-dashboard
+uv sync
+cp .env.example .env      # add your YouTube API key
+uv run streamlit run app.py
+
 # Camera Viewer
 cd camera-viewer
 python app.py
+```
+
+## 📺 YT Dashboard
+
+A full-featured YouTube channel analytics dashboard built with Streamlit. Tracks views, likes, comments, engagement ratios, and more for @thevibecoder69.
+
+### Views
+
+**📊 Public Overview** — Channel header with subscriber count, total views, video count. Recent videos table with embedded YouTube players, metrics, and engagement ratios.
+
+![Public Overview](showcase/yt-dashboard/public_overview.png)
+
+**🎥 Video Explorer** — Filterable/sortable video cards with embedded players. Sort by date, views, likes, or engagement. Quick filter chips for top performers.
+
+![Video Explorer](showcase/yt-dashboard/video_explorer.png)
+
+**📈 Analytics** — Views over time, like/comment distribution, engagement scatter plot, summary statistics, and raw data table.
+
+![Analytics](showcase/yt-dashboard/analytics.png)
+
+**🔐 Studio (Coming Soon)** — Placeholder for YouTube Analytics API OAuth metrics: impressions, CTR, audience retention, traffic sources.
+
+### Setup
+```bash
+cd yt-dashboard
+uv sync
+cp .env.example .env      # add your YouTube API key
+uv run streamlit run app.py
 ```
 
 ## 📜 License
