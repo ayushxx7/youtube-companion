@@ -1,0 +1,16 @@
+[project]
+name = "yt-dashboard"
+version = "1.0.0"
+description = "YouTube Channel Dashboard for @thevibecoder69 — built with Streamlit"
+requires-python = ">=3.12"
+dependencies = [
+    "google-api-python-client>=2.100.0",
+    "python-dotenv>=1.0.0",
+    "streamlit>=1.30.0",
+    "pandas>=2.0.0",
+    "isodate>=0.6.1",
+    "altair>=5.0.0",
+]
+
+[dependency-groups]
+dev = []
