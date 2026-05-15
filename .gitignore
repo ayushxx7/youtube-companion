@@ -3,3 +3,6 @@
 client_secrets.json
 youtube_credentials.pickle
 metadata.json
+__pycache__
+*.pyc
+*.db
