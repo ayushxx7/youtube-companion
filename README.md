@@ -6,42 +6,51 @@
 
 **YouTube Companion** is a dedicated tool suite designed to automate and streamline the content creation workflow for Ayush's YouTube channel.
 
-`✅ YouTube API Integration | ✅ Real-time Camera Roll | ✅ MIT Licensed | ✅ Environment-Aware`
+`✅ YouTube API Integration | ✅ Real-time Camera Roll | ✅ Analytics Dashboard | ✅ MIT Licensed`
 
 ## 🎬 UI Previews
-| 📤 Upload Assistant | 📷 Camera Viewer |
-| :---: | :---: |
-| ![Upload](showcase/upload_preview.svg) | ![Camera](showcase/camera_preview.svg) |
+
+| 📊 Analytics Dashboard | 📤 Upload Assistant | 📷 Camera Viewer |
+| :---: | :---: | :---: |
+| ![Analytics](showcase/analytics_dashboard.png) | ![Upload](showcase/upload_preview.svg) | ![Camera](showcase/camera_preview.svg) |
 
 ## 🏗 Architecture
-The suite is organized into independent Streamlit micro-apps, sharing a common environment and asset pool.
-
-```mermaid
-graph TD
-    A[User] --> B[Upload Assistant]
-    A --> C[Camera Viewer]
-    B --> D[YouTube API]
-    C --> E[Local Assets / OS]
-    B --> F[.env Credentials]
-    C --> F
-```
+The suite is organized into independent micro-apps, sharing a common environment and asset pool.
 
 ### Core Components
-- **Upload Assistant**: Handles OAuth flow, surgical metadata injection, and reliable uploads via official APIs.
-- **Camera Viewer**: Provides real-time asset browsing, camera roll management, and metadata extraction via `yt-dlp`.
+- **Upload Assistant**: Handles OAuth flow, surgical metadata injection, and reliable uploads via official APIs. AI-powered metadata generation via OpenRouter.
+- **Camera Viewer**: Provides real-time asset browsing, camera roll management, and metadata extraction via `yt-dlp`. Flask-based web UI.
+- **Analytics Intelligence**: YouTube analytics dashboard with custom KPIs (Hook Score, Packaging Score, Engagement Efficiency). Includes FastMCP server for AI-driven analysis.
 - **Environment Hub**: Centralized `.env` and `.streamlit/config.toml` for seamless key management.
 
 ## 🚀 Key Features
-- 📤 **Automated Uploads**: Manage YouTube uploads with precision metadata control.
-- 📷 **Asset Management**: Preview and manage local camera assets in real-time.
+- 📤 **Automated Uploads**: Manage YouTube uploads with precision metadata control and AI-generated titles/descriptions.
+- 📷 **Asset Management**: Preview and manage local camera assets in real-time via ADB.
+- 📊 **Analytics Dashboard**: Track Hook Score, Packaging Score, and Engagement Efficiency with Plotly visualizations.
+- 🤖 **MCP Server**: FastMCP-powered tools for video performance analysis and comparison.
 - 🛠 **Extendable**: Micro-app architecture ready for new automation tools.
 
 ## 🛠 Setup
+
 ```bash
 git clone https://github.com/ayushxx7/youtube-companion.git
-pip install -r requirements.txt
-# Configure .env with your YouTube API keys
-streamlit run upload-assistant/app.py
+```
+
+Each tool is self-contained:
+
+```bash
+# Analytics Intelligence
+cd analytics-intelligence
+python setup.py           # install deps + seed demo data
+streamlit run dashboard/app.py
+
+# Upload Assistant
+cd upload-assistant
+uv run streamlit run app.py
+
+# Camera Viewer
+cd camera-viewer
+python app.py
 ```
 
 ## 📜 License
